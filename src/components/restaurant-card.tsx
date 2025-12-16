@@ -51,7 +51,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
             </div>
             <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
-                    <CardTitle className="text-xl">{restaurant.name}</CardTitle>
+                    <CardTitle className="text-xl text-gray-900">{restaurant.name}</CardTitle>
                     <div className="flex items-center bg-yellow-100 px-2 py-1 rounded-full">
                         <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 mr-1" />
                         <span className="text-sm font-bold text-yellow-700">
