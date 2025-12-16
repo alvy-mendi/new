@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LocationButton } from "@/components/location-button";
 import { RestaurantCard, Restaurant } from "@/components/restaurant-card";
-import { UtensilsCrossed } from "lucide-react";
+import { UtensilsCrossed, Search } from "lucide-react";
 
 export default function Home() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -14,6 +14,36 @@ export default function Home() {
 
   const [radius, setRadius] = useState(1);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [address, setAddress] = useState("");
+
+  const handleManualSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!address.trim()) return;
+
+    setLoading(true);
+    setError(null);
+    setSearched(true);
+    setRestaurants([]);
+
+    try {
+      const geoRes = await fetch(`/api/geocode?address=${encodeURIComponent(address)}`);
+      const geoData = await geoRes.json();
+
+      if (!geoRes.ok) {
+        throw new Error(geoData.error || "Failed to find location");
+      }
+
+      const { lat, lng } = geoData;
+      setUserLocation({ lat, lng });
+
+      // Now fetch restaurants for this location
+      await fetchRestaurants(lat, lng, radius);
+
+    } catch (err: any) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   const fetchRestaurants = async (lat: number, lng: number, r: number) => {
     setLoading(true);
@@ -94,6 +124,30 @@ export default function Home() {
             onLocationFound={handleLocationFound}
             onError={(msg) => setError(msg)}
           />
+
+          <div className="flex items-center w-full max-w-md my-4">
+            <div className="h-px bg-gray-300 flex-1"></div>
+            <span className="px-4 text-gray-500 text-sm">OR</span>
+            <div className="h-px bg-gray-300 flex-1"></div>
+          </div>
+
+          <form onSubmit={handleManualSearch} className="w-full max-w-md flex gap-2">
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Enter city, zip, or address..."
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+            <button
+              type="submit"
+              disabled={loading || !address.trim()}
+              className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              <Search className="w-4 h-4" />
+              Search
+            </button>
+          </form>
         </div>
 
         {error && (
