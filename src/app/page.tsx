@@ -95,7 +95,7 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl mb-2">
             Gourmet Finder
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-900 max-w-2xl mx-auto">
             Find highly-rated restaurants (4.5+) within {radius} mile{radius > 1 ? 's' : ''} of your current location.
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function Home() {
               onChange={handleRadiusChange}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-gray-800 mt-1">
               <span>1 mi</span>
               <span>5 mi</span>
             </div>
@@ -127,7 +127,7 @@ export default function Home() {
 
           <div className="flex items-center w-full max-w-md my-4">
             <div className="h-px bg-gray-300 flex-1"></div>
-            <span className="px-4 text-gray-500 text-sm">OR</span>
+            <span className="px-4 text-gray-800 text-sm">OR</span>
             <div className="h-px bg-gray-300 flex-1"></div>
           </div>
 
@@ -198,7 +198,7 @@ export default function Home() {
 
         {!loading && searched && restaurants.length === 0 && !error && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-800 text-lg">
               No restaurants found nearby with a 4.5+ rating. Tough crowd!
             </p>
           </div>

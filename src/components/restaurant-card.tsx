@@ -44,7 +44,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                         className="h-full w-full object-cover"
                     />
                 ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-600">
                         <span className="text-sm">No Image Available</span>
                     </div>
                 )}
@@ -57,14 +57,14 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                         <span className="text-sm font-bold text-yellow-700">
                             {restaurant.rating}
                         </span>
-                        <span className="text-xs text-gray-500 ml-1">
+                        <span className="text-xs text-gray-800 ml-1">
                             ({restaurant.user_ratings_total})
                         </span>
                     </div>
                 </div>
             </CardHeader>
             <CardContent>
-                <div className="flex items-start text-gray-600 mb-2">
+                <div className="flex items-start text-gray-900 mb-2">
                     <MapPin className="w-4 h-4 mr-1 mt-1 shrink-0" />
                     <span className="text-sm">{restaurant.vicinity}</span>
                 </div>
