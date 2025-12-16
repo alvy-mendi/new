@@ -128,10 +128,13 @@ export async function GET(request: Request) {
             })) : [],
         }));
 
-        // Sort by rating (highest first)
-        results.sort((a: any, b: any) => b.rating - a.rating);
+        // Filter out restaurants with less than 10 reviews
+        const filteredResults = results.filter((place: any) => place.user_ratings_total >= 10);
 
-        return NextResponse.json({ results, isMock: false });
+        // Sort by rating (highest first)
+        filteredResults.sort((a: any, b: any) => b.rating - a.rating);
+
+        return NextResponse.json({ results: filteredResults, isMock: false });
     } catch (error: any) {
         console.error("Error fetching restaurants:", error);
         return NextResponse.json(
